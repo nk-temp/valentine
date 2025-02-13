@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Анечка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --main-color: #ff69b4;
+            --accent-color: #ff1493;
+        }
+        
+        body {
+            background: linear-gradient(45deg, #fff0f6, #ffe4e1);
+            font-family: 'Dancing Script', cursive;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23ff69b4" d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z"/></svg>'), auto;
+        }
+
+        .magic-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10rem;
+            transform-style: preserve-3d;
+        }
+
+        .floating-heart {
+            width: 150px;
+            height: 150px;
+            background: var(--accent-color);
+            margin: 4rem auto;
+            transform: rotate(45deg);
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 0 40px rgba(255,20,147,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .floating-heart::before,
+        .floating-heart::after {
+            content: '';
+            width: 150px;
+            height: 150px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .floating-heart::before { top: -75px; left: 0; }
+        .floating-heart::after { left: -75px; top: 0; }
+
+        @keyframes float {
+            0%, 100% { transform: rotate(45deg) translateY(0); }
+            50% { transform: rotate(45deg) translateY(-20px); }
+        }
+
+        .message-box {
+            background: rgba(255,255,255,0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform 0.5s;
+        }
+
+        .message-box:hover {
+            transform: perspective(1000px) rotateY(10deg);
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: var(--main-color);
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 0px white;
+            margin: 1rem 0;
+        }
+
+        .love-text {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: #666;
+            position: relative;
+            padding: 1rem;
+        }
+
+        .sparkles {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .photo-frame {
+            width: 200px;
+            height: 200px;
+            margin: 1rem auto;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 0 30px rgba(255,105,180,0.3);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .photo-frame:hover {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(255,20,147,0.5); }
+            50% { text-shadow: 0 0 20px rgba(255,20,147,0.8); }
+            100% { text-shadow: 0 0 10px rgba(255,20,147,0.5); }
+        }
+
+        .animated-text {
+            animation: textGlow 2s infinite;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="magic-container">
+        <div class="floating-heart"></div>
+        
+        <div class="message-box">
+            <div class="photo-frame">
+                <img src="icon.jpg" style="width:100%; height:100%; object-fit:cover">
+            </div>
+            
+            <h1 class="animated-text">Анечка, ты лучше всех!✨</h1>
+            
+            <div class="love-text">
+                <p>Спасибо, что появилась в моей жизни:</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li>🌹 Твои глаза - отражение всего самого лучшего</li>
+                    <li>💌 Твоя забота греет лучше любого солнца</li>
+                    <li>🎀 Ты красива как богиня</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            if(Math.random() > 0.9) {
+                createHeartAtPosition(e.clientX, e.clientY);
+            }
+        });
+
+        function createHeartAtPosition(x, y) {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💖';
+            heart.style.cssText = `
+                position: fixed;
+                left: ${x}px;
+                top: ${y}px;
+                font-size: 25px;
+                animation: floatHeart 4s linear forwards;
+                pointer-events: none;
+                z-index: 999;
+                opacity: 0.7;
+                transform-origin: center;
+            `;
+            setTimeout(() => document.body.appendChild(heart), 100);
+            setTimeout(() => heart.remove(), 1000);
+        }
+    </script>
+</body>
+</html>
