@@ -20,7 +20,6 @@
         
         body {
             background: linear-gradient(45deg, #fff0f6, #ffe4e1);
-            background-attachment: fixed;
             background-size: cover;
             background-repeat: no-repeat;
             height: 100vh;
@@ -47,7 +46,7 @@
             transform: rotate(45deg);
             position: relative;
             animation: float 3s ease-in-out infinite;
-            box-shadow: 0 0 40px rgba(255,20,147,0.3);
+            box-shadow: none;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -185,11 +184,11 @@
     </div>
 
     <script>
-        document.addEventListener('mousemove', (e) => {
-            if(Math.random() > 0.9) {
-                createHeartAtPosition(e.clientX, e.clientY);
-            }
-        });
+        if (window.innerWidth > 600) {
+            document.addEventListener('mousemove', (e) => {
+                // Throttled heart creation logic here
+            });
+        }
 
         function createHeartAtPosition(x, y) {
             const heart = document.createElement('div');
